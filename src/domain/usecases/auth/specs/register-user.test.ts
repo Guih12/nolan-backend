@@ -1,6 +1,5 @@
+import { RegisterUser } from "../register-user"
 import { describe, test, expect, vi } from "vitest"
-import { IRegisterUser } from "@/domain/usecases/auth/register-user"
-import { RegisterUser } from "./register-user"
 
 export interface RegisterUserRepository {
   create: (name: string, email: string, password: string) => Promise<void>
