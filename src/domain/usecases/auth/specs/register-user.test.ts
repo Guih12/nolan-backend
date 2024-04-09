@@ -1,4 +1,4 @@
-import { RegisterUser } from "../register-user"
+import { RegisterUser } from "@/domain/usecases/auth/register-user"
 import { describe, test, expect, vi } from "vitest"
 import { RegisterUserRepositorySpy } from "./mocks/register-repository-spy"
 import { EcrypterSpy } from "./mocks/encrypter-spy"
