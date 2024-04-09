@@ -1,14 +1,17 @@
 import { IRegisterUserRepository } from "@/adapters/repository/auth/register-user-repository"
 import {IRegisterUser } from "./contracts/register-user-contract"
 import { PasswordLengthInvalid, UserExist } from "../../errors"
+import { User } from "../../entities/user"
 
 export class RegisterUser implements IRegisterUser {
   constructor(private readonly registerUserRepository: IRegisterUserRepository) {}
 
-  async create(name: string, email: string, password: string): Promise<void> {
+  async create(name: string, email: string, password: string): Promise<User> {
     await this.userExists(email)
     this.validatePassword(password)
-    await this.registerUserRepository.create(name, email, password)
+    const user = new User(name, email, password)
+    await this.registerUserRepository.create(user.getName(), user.getEmail(), user.getPassword())
+    return user
   }
 
   private async userExists(email: string): Promise<void | UserExist> {
