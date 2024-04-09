@@ -1,17 +1,19 @@
-export class User {
-  private readonly id?: number;
-  private readonly name: string;
-  private readonly email: string;
-  private readonly password: string;
+import { v4 as uuidv4 } from "uuid";
 
-  constructor(name: string, email: string, password: string, id?: number) {
-    this.id = id;
+export class User {
+  private readonly id?: string;
+  private name: string;
+  private email: string;
+  private password: string;
+
+  constructor(name: string, email: string, password: string, id?: string) {
+    this.id = id || uuidv4();
     this.name = name;
     this.email = email;
     this.password = password;
   }
 
-  getId(): number | undefined {
+  getId(): string | undefined{
     return this.id;
   }
 

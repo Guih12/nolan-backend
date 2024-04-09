@@ -9,11 +9,12 @@ export class RegisterUser implements IRegisterUser {
 
   constructor(private readonly registerUserRepository: IRegisterUserRepository, private readonly encrypter: Encrypter) {}
 
-  async create(name: string, email: string, password: string): Promise<Boolean> {
+  async create(name: string, email: string, password: string): Promise<User> {
     await this.userExists(email)
     this.validatePassword(password)
-    const user = new User(name, email, await this.encryptPassword(password))
-    return await this.registerUserRepository.create(user.getName(), user.getEmail(), user.getPassword())
+    const user: User = new User(name, email, await this.encryptPassword(password))
+    await this.registerUserRepository.create(user.getName(), user.getEmail(), user.getPassword())
+    return user
   }
 
   private async userExists(email: string): Promise<void | UserExist> {

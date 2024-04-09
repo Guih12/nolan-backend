@@ -15,8 +15,13 @@ const makeSut = () => {
 describe('RegisterUser', () => {
   test('should register new user, when all params is valid and user not exists', async () => {
     const { sut, userRegisterRepositorySpy } = makeSut()
-    await sut.create(faker.person.firstName(), faker.internet.email(), faker.internet.password())
+    const response = await sut.create(faker.person.firstName(), faker.internet.email(), faker.internet.password())
     expect(userRegisterRepositorySpy.incrementCallsCount).toBe(1)
+    
+    expect(response.getId()).not.toBeUndefined()
+    expect(response.getEmail()).not.toBeUndefined()
+    expect(response.getName()).not.toBeUndefined()
+    expect(response.getPassword()).not.toBeUndefined()
   })
 
   test("should call encrypter with correct password", async () => {
