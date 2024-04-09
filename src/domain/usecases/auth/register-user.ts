@@ -6,12 +6,16 @@ import { User } from "../../entities/user"
 export class RegisterUser implements IRegisterUser {
   constructor(private readonly registerUserRepository: IRegisterUserRepository) {}
 
-  async create(name: string, email: string, password: string): Promise<User> {
+  async create(name: string, email: string, password: string): Promise<Boolean> {
     await this.userExists(email)
     this.validatePassword(password)
     const user = new User(name, email, password)
-    await this.registerUserRepository.create(user.getName(), user.getEmail(), user.getPassword())
-    return user
+    try{
+      await this.registerUserRepository.create(user.getName(), user.getEmail(), user.getPassword())
+      return true
+    }catch(err){
+      throw new Error("Error on create use")
+    }
   }
 
   private async userExists(email: string): Promise<void | UserExist> {

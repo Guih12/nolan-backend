@@ -12,10 +12,10 @@ export class RegisterUserRepositorySpy implements IRegisterUserRepository {
   incrementCallsCount = 0
   incrementCallsFindByEmailCount = 0
 
-  async create(name: string, email: string, password: string): Promise<void> {
+  async create(name: string, email: string, password: string): Promise<boolean> {
     this.incrementCallsCount++
     await this.users.push({ name, email, password })
-    return 
+    return true
   }
 
   async findByEmail(email: string) {
