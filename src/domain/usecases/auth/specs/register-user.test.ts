@@ -1,35 +1,6 @@
 import { RegisterUser } from "../register-user"
-import { describe, test, expect, vi } from "vitest"
-
-export interface RegisterUserRepository {
-  create: (name: string, email: string, password: string) => Promise<void>
-  findByEamil(email: string): Promise<any>
-}
-
-class RegisterUserRepositorySpy implements RegisterUserRepository {
-  users = [
-    {
-      name: "some_name",
-      email: "some_email",
-      password: "some_password"
-    }
-  ]
-
-  incrementCallsCount = 0
-  incrementCallsFindByEmailCount = 0
-
-  async create(name: string, email: string, password: string): Promise<void> {
-    this.incrementCallsCount++
-    await this.users.push({ name, email, password })
-    return 
-  }
-
-  async findByEamil(email: string) {
-    this.incrementCallsFindByEmailCount++
-    return this.users.find(user => user.email === email)
-  }
-
-}
+import { describe, test, expect } from "vitest"
+import { RegisterUserRepositorySpy } from "./mocks/register-repository-spy"
 
 const makeSut = () => {
   const userRegisterRepositorySpy = new RegisterUserRepositorySpy()
