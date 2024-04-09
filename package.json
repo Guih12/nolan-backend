@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/node": "^20.12.5",
     "@vitest/coverage-v8": "^1.4.0",
     "@vitest/ui": "^1.4.0",

@@ -11,12 +11,7 @@ export class RegisterUser implements IRegisterUser {
     await this.userExists(email)
     this.validatePassword(password)
     const user = new User(name, email, await this.encryptPassword(password))
-    try{
-      await this.registerUserRepository.create(user.getName(), user.getEmail(), user.getPassword())
-      return true
-    }catch(err){
-      throw new Error("Error on create user")
-    }
+    return await this.registerUserRepository.create(user.getName(), user.getEmail(), user.getPassword())
   }
 
   private async userExists(email: string): Promise<void | UserExist> {
