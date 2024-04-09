@@ -2,7 +2,7 @@ import { IRegisterUserRepository } from "@/adapters/repository/auth/register-use
 import {IRegisterUser } from "./contracts/register-user-contract"
 import { PasswordLengthInvalid, UserExist } from "../../errors"
 import { User } from "../../entities/user"
-import { Encrypter } from "@/adapters/lib/encrypter"
+import { Encrypter } from "@/adapters/libs/encrypter"
 
 export class RegisterUser implements IRegisterUser {
   private PASSWORD_LENGTH = 6

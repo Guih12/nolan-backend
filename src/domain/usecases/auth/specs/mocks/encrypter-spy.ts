@@ -1,4 +1,4 @@
-import { Encrypter } from "@/adapters/lib/encrypter"
+import { Encrypter } from "@/adapters/libs/encrypter"
 import crypto from "crypto"
 
 export class EcrypterSpy implements Encrypter {
