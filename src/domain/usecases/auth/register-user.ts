@@ -1,5 +1,5 @@
 import { IRegisterUserRepository } from "@/adapters/repository/auth/register-user-repository"
-import {IRegisterUser } from "./contracts/register-user-contract"
+import { IRegisterUser } from "./contracts/register-user-contract"
 import { PasswordLengthInvalid, UserExist } from "../../errors"
 import { User } from "../../entities/user"
 import { Encrypter } from "@/adapters/libs/encrypter"
