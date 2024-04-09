@@ -5,6 +5,8 @@ import { User } from "../../entities/user"
 import { Encrypter } from "@/adapters/lib/encrypter"
 
 export class RegisterUser implements IRegisterUser {
+  private PASSWORD_LENGTH = 6
+
   constructor(private readonly registerUserRepository: IRegisterUserRepository, private readonly encrypter: Encrypter) {}
 
   async create(name: string, email: string, password: string): Promise<Boolean> {
@@ -19,7 +21,7 @@ export class RegisterUser implements IRegisterUser {
   }
 
   private validatePassword(password: string): PasswordLengthInvalid | void {
-    if(password.length < 6) throw new PasswordLengthInvalid()
+    if(password.length < this.PASSWORD_LENGTH) throw new PasswordLengthInvalid()
   }
 
   private async encryptPassword(password: string): Promise<string> {
