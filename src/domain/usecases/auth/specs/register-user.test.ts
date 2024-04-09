@@ -1,11 +1,14 @@
 import { RegisterUser } from "../register-user"
 import { describe, test, expect } from "vitest"
 import { RegisterUserRepositorySpy } from "./mocks/register-repository-spy"
+import { EcrypterSpy } from "./mocks/encrypter-spy"
+import crypto from "crypto"
 
 const makeSut = () => {
   const userRegisterRepositorySpy = new RegisterUserRepositorySpy()
-  const sut = new RegisterUser(userRegisterRepositorySpy)
-  return { sut, userRegisterRepositorySpy }
+  const encrypterSpy = new EcrypterSpy()
+  const sut = new RegisterUser(userRegisterRepositorySpy, encrypterSpy)
+  return { sut, userRegisterRepositorySpy, encrypterSpy }
 }
 
 describe('RegisterUser', () => {
@@ -13,6 +16,16 @@ describe('RegisterUser', () => {
     const { sut, userRegisterRepositorySpy } = makeSut()
     await sut.create("some_name", "some_another_email", "some_password")
     expect(userRegisterRepositorySpy.incrementCallsCount).toBe(1)
+  })
+
+  test("should call encrypter with correct password", async () => {
+    const { sut, userRegisterRepositorySpy,  encrypterSpy} = makeSut()
+
+    await sut.create("some_name", "some_another_email", "some_password")
+    const user = userRegisterRepositorySpy.users.find(user => user.email === "some_another_email")
+
+    expect(encrypterSpy.calssCount).toBe(1)
+    expect(user.password).toBe(crypto.createHash("md5").update("some_password").digest("hex"))
   })
 
   test("should return error when user exists", async () => {
