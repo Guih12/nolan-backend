@@ -41,5 +41,6 @@ describe('RegisterUser', () => {
     const promise = sut.create("some_name", "some_email", "some_password")
 
     await expect(promise).rejects.toThrow("User alread exists")
+    expect(sut.incrementCallsCreateCount).toBe(0)
   })
 });
