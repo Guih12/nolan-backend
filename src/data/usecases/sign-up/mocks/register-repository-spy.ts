@@ -1,6 +1,6 @@
-import { IRegisterUserRepository } from "@/adapters/repository/auth/register-user-repository"
+import { ISignUpRepository } from "@/data/repositories"
 
-export class RegisterUserRepositorySpy implements IRegisterUserRepository {
+export class SignUpRepositotySpy implements ISignUpRepository {
   users = [
     {
       name: "some_name",

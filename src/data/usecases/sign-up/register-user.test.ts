@@ -1,21 +1,21 @@
-import { RegisterUser } from "@/domain/usecases/auth/register-user"
 import { describe, test, expect, vi } from "vitest"
-import { RegisterUserRepositorySpy } from "./mocks/register-repository-spy"
+import { SignUpRepositotySpy } from "./mocks/register-repository-spy"
+import { SignUp } from "@/data/usecases"
 import { EcrypterSpy } from "./mocks/encrypter-spy"
 import crypto from "crypto"
 import { faker } from "@faker-js/faker"
 
 const makeSut = () => {
-  const userRegisterRepositorySpy = new RegisterUserRepositorySpy()
+  const userRegisterRepositorySpy = new SignUpRepositotySpy()
   const encrypterSpy = new EcrypterSpy()
-  const sut = new RegisterUser(userRegisterRepositorySpy, encrypterSpy)
+  const sut = new SignUp(userRegisterRepositorySpy, encrypterSpy)
   return { sut, userRegisterRepositorySpy, encrypterSpy }
 }
 
 describe('RegisterUser', () => {
   test('should register new user, when all params is valid and user not exists', async () => {
     const { sut, userRegisterRepositorySpy } = makeSut()
-    const response = await sut.create(faker.person.firstName(), faker.internet.email(), faker.internet.password())
+    const response = await sut.execute(faker.person.firstName(), faker.internet.email(), faker.internet.password())
     expect(userRegisterRepositorySpy.incrementCallsCount).toBe(1)
     
     expect(response.getId()).not.toBeUndefined()
@@ -29,7 +29,7 @@ describe('RegisterUser', () => {
 
     const password = faker.internet.password()
     const email = faker.internet.email()
-    await sut.create(faker.person.firstName(), email, password)
+    await sut.execute(faker.person.firstName(), email, password)
     const user = userRegisterRepositorySpy.users.find(user => user.email === email)
 
     expect(encrypterSpy.calssCount).toBe(1)
@@ -39,7 +39,7 @@ describe('RegisterUser', () => {
   test("should return error when user exists", async () => {
     const {sut, userRegisterRepositorySpy} = makeSut()
 
-    const promise = sut.create("some_name", "some_email", "some_password")
+    const promise = sut.execute("some_name", "some_email", "some_password")
 
     expect(userRegisterRepositorySpy.incrementCallsFindByEmailCount).toBe(1)
     await expect(promise).rejects.toThrow("User alread exists")
@@ -48,7 +48,7 @@ describe('RegisterUser', () => {
   test("should return error when password length is invalid", async () => {
     const {sut} = makeSut()
 
-    const promise = sut.create(faker.person.firstName(), faker.internet.email(), faker.internet.password(5))
+    const promise = sut.execute(faker.person.firstName(), faker.internet.email(), faker.internet.password(5))
 
     await expect(promise).rejects.toThrow("Password length is invalid")
   })

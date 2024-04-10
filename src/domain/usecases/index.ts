@@ -1,1 +1,1 @@
-export * from "./auth/register-user"
+export * from './sign-up'
