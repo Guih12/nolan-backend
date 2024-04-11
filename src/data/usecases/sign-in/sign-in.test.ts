@@ -13,14 +13,14 @@ describe("SignIn", () => {
   test("should return errror when email not found", async () => {
     const { sut, signInRepositorySpy } = makeSut()
     const promise = sut.execute("invalid_email", "some_password")
-    await expect(promise).rejects.toThrow("User not exists")
+    await expect(promise).rejects.toThrow("Email or password is wrong")
     expect(signInRepositorySpy.incrementCallsCount).toBe(1)
   })
 
   test("should return error when password is invalid", async () => {
     const { sut, signInRepositorySpy } = makeSut()
     const promise = sut.execute("some_email", "invalid_password")
-    await expect(promise).rejects.toThrow("User not exists")
+    await expect(promise).rejects.toThrow("Email or password is wrong")
     expect(signInRepositorySpy.incrementCallsCount).toBe(1)
   })
 
