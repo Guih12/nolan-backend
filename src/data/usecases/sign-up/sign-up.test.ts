@@ -2,7 +2,6 @@ import { describe, test, expect, vi } from "vitest"
 import { SignUpRepositotySpy } from "./mocks/register-repository-spy"
 import { SignUp } from "@/data/usecases"
 import { EcrypterSpy } from "./mocks/encrypter-spy"
-import crypto from "crypto"
 import { faker } from "@faker-js/faker"
 
 const makeSut = () => {
