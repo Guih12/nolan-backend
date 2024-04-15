@@ -2,6 +2,7 @@ import { CreateAnimalInput, ICreateAnimal } from "@/domain/usecases/animal/creat
 import { Animal, Weight } from "@/domain/entities"
 import { ICreateAnimalRepository } from "@/data/repositories/create-animal-repository"
 import { ICreateWeightRepository } from "@/data/repositories/create-weight-repository"
+import { v4 as uuidv4 } from "uuid"
 
 export class CreateAnimal implements ICreateAnimal {
   constructor(
@@ -11,11 +12,15 @@ export class CreateAnimal implements ICreateAnimal {
 
   async execute(input: CreateAnimalInput): Promise<Animal> {
     const { name, age, type, sex, breed, weight} = input
-    const animal = new Animal("any_id", name, age, type, sex, breed)
-    const newWeight = new Weight("any_id", weight)
+    const animal = new Animal(await this.generateId(), name, age, type, sex, breed)
+    const newWeight = new Weight(await this.generateId(), weight, new Date())
     animal.addWeight(newWeight)
     await this.createAnimalRepository.create(animal)
     await this.createWeightRepository?.create(newWeight, animal.getId())
     return animal
+  }
+
+  async generateId(): Promise<string> {
+    return uuidv4()
   }
 }

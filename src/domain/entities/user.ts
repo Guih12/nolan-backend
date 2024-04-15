@@ -1,13 +1,16 @@
-import { v4 as uuidv4 } from "uuid";
+import { PasswordLengthInvalid } from "../errors";
+import { Encrypter } from "@/adapters/libs/encrypter";
 
 export class User {
-  private readonly id?: string;
+  private id: string;
   private name: string;
   private email: string;
   private password: string;
 
-  constructor(name: string, email: string, password: string, id?: string) {
-    this.id = id || uuidv4();
+  constructor(id: string, name: string, email: string, password: string) {
+    if(password.length < 6) throw new PasswordLengthInvalid()
+
+    this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;
@@ -27,5 +30,9 @@ export class User {
 
   getPassword(): string {
     return this.password;
+  }
+
+  async encryptPassword(encrypter: Encrypter): Promise<void> {
+    this.password = await encrypter.encrypt(this.password);
   }
 }

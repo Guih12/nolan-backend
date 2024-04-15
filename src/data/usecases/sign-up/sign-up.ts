@@ -3,6 +3,7 @@ import { User } from "@/domain/entities"
 import { Encrypter } from "@/adapters/libs/encrypter"
 import { ISignUp } from "@/domain/usecases"
 import { ISignUpRepository } from "@/data/repositories"
+import { v4 as uuidv4 } from "uuid"
 
 export class SignUp implements ISignUp {
   private PASSWORD_LENGTH = 6
@@ -11,8 +12,8 @@ export class SignUp implements ISignUp {
 
   async execute(name: string, email: string, password: string): Promise<User> {
     await this.userExists(email)
-    this.validatePassword(password)
-    const user: User = new User(name, email, await this.encryptPassword(password))
+    const user: User = new User(await this.generateId(), name, email, password)
+    user.encryptPassword(this.encrypter)
     await this.signUpRepository.create(user.getName(), user.getEmail(), user.getPassword())
     return user
   }
@@ -21,11 +22,7 @@ export class SignUp implements ISignUp {
     if(await this.signUpRepository.findByEmail(email)) throw new UserExist()
   }
 
-  private validatePassword(password: string): PasswordLengthInvalid | void {
-    if(password.length < this.PASSWORD_LENGTH) throw new PasswordLengthInvalid()
-  }
-
-  private async encryptPassword(password: string): Promise<string> {
-    return this.encrypter.encrypt(password)
+  private async generateId(): Promise<string> {
+    return uuidv4()
   }
 }

@@ -14,6 +14,7 @@ Como usuário, desejo realizar cadastro do meu pet no aplicativo. O pet contém 
 Além do mais, quero também gerar a carteira de vácina dele. A cartira contém as seguintes informaçoes
 - Vacina (exemplo: V10, V8)
 - Data de aplicaçao
+- aplicado = false (default)
 
 Porém a criação dessa carteirinha deve ser automatizada, ou seja, se o animal não tiver tomado nenhuma vácina, o sistema
 deve gerar a carteira com as vácinas que o mesmo deve tomar.
