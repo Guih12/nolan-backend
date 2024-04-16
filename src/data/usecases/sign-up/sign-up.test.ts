@@ -26,7 +26,7 @@ describe('RegisterUser', () => {
   test("should call encrypter with correct password", async () => {
     const { sut, userRegisterRepositorySpy,  encrypterSpy} = makeSut()
 
-    const password = faker.internet.password()
+    const password = faker.internet.password(10)
     const email = faker.internet.email()
     await sut.execute(faker.person.firstName(), email, password)
     const user = userRegisterRepositorySpy.users.find(user => user.email === email)

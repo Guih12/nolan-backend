@@ -10,6 +10,6 @@ export class SignIn implements ISignIn {
     const currentUser = await this.signInRepository.findByEmail(email)
     if(!currentUser) throw new EmailOrPasswordWrong()
     if(currentUser.password !== password) throw new EmailOrPasswordWrong()
-    return new User(currentUser.id, currentUser.email, currentUser.password)
+    return new User(currentUser.id, currentUser.name, currentUser.email, currentUser.password)
   }
 }

@@ -18,3 +18,9 @@ Além do mais, quero também gerar a carteira de vácina dele. A cartira contém
 
 Porém a criação dessa carteirinha deve ser automatizada, ou seja, se o animal não tiver tomado nenhuma vácina, o sistema
 deve gerar a carteira com as vácinas que o mesmo deve tomar.
+
+# Roles para criar a vacina.
+- Se o cachorro tiver idade menos de 6 semanas a 9 e nunca tiver tomado vácina, deve se criar as seguintes vácinas;
+- V10 (o cachorro tem que tomar 3 vácinas a cada 21 dias)
+- gripe oral
+- giardia
