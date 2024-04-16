@@ -14,7 +14,7 @@ export class CreateVaccineCard implements ICreateVaccineCard {
   ) {}
   
   async execute(input: CreateVaccineCardInput): Promise<void> {
-    if((input.animal.getAge() >= 6 && input.animal.getAge() < 9) && input.isVaccinated === false){
+    if((input.animal.getAge() >= 6 && input.animal.getAge() < 9) && !input.isVaccinated){
       await this.createVaccineCardWithV10(input.animal)
       await this.createVaccineCardWithGiardia(input.animal)
       await this.createVaccineCardWithGripeOral(input.animal)
