@@ -71,22 +71,48 @@ class VaccineRepositorySpy {
       name: "Gripe Oral"
     }
   ]
+
+  incrementCalls = 0
   
   async getVaccineByName(name: string): Promise<any> {
+    this.incrementCalls++
     return this.vaccines.find(vaccine => vaccine.name === name)
   }
 }
 
-class CreateVaccineCardSpy implements ICreateVaccineCard {
-  vaccineCardList: any[] = []
+class VaccineCardRepositorySpy {
+  incrementCalls = 0
+  public async create(vaccineCard: VaccineCard[]): Promise<boolean> {
+    vaccineCard.map((vaccineCard) => {
+      this.incrementCalls++
+    })
+    return true 
+  }
+}
 
-  constructor(private readonly vaccineRepository = new VaccineRepositorySpy()) {}
+export interface IVaccineRepository {
+  getVaccineByName(name: string): Promise<any>
+}
+
+export interface IVaccineCardRepository {
+  create(vaccineCard: VaccineCard[]): Promise<boolean>
+}
+
+class CreateVaccineCardSpy implements ICreateVaccineCard {
+  vaccineCardList: VaccineCard[] = []
+
+  constructor(
+    private readonly vaccineRepository: IVaccineRepository,
+    private readonly vaccineCardRepository: IVaccineCardRepository
+  ) {}
   
   async execute(input: CreateVaccineCardInput): Promise<void> {
     if((input.animal.getAge() >= 6 && input.animal.getAge() < 9) && input.isVaccinated === false){
-      this.createVaccineCardWithV10(input.animal)
-      this.createVaccineCardWithGiardia(input.animal)
-      this.createVaccineCardWithGripeOral(input.animal)
+      await this.createVaccineCardWithV10(input.animal)
+      await this.createVaccineCardWithGiardia(input.animal)
+      await this.createVaccineCardWithGripeOral(input.animal)
+
+      await this.vaccineCardRepository.create(this.vaccineCardList)
     }
   }
 
@@ -119,23 +145,41 @@ class CreateVaccineCardSpy implements ICreateVaccineCard {
   }
 }
 
+
+type TypeSut = {
+  sut: CreateVaccineCardSpy
+  vaccineRepositorySpy: VaccineRepositorySpy
+  vaccineCardRepositorySpy: VaccineCardRepositorySpy
+}
+
+function makeSut(): TypeSut {
+  const vaccineRepositorySpy = new VaccineRepositorySpy()
+  const vaccineCardRepositorySpy = new VaccineCardRepositorySpy()
+  const sut = new CreateVaccineCardSpy(vaccineRepositorySpy, vaccineCardRepositorySpy)
+  return {
+    sut,
+    vaccineRepositorySpy,
+    vaccineCardRepositorySpy
+  }
+}
+
 describe("Create Vaccine Card", () => {
   test("when the animal age have 6 between 9 weeks and never been vaccinated, should create list of vaccines", async () => {
     const animal = new Animal("any_id", "any_name", 6, "any_type", "any_sex", "")
-    const sut = new CreateVaccineCardSpy();
+    const {sut, vaccineCardRepositorySpy, vaccineRepositorySpy} = makeSut()
 
     await sut.execute({animal, vaccine: {}, isVaccinated: false})
-
-    expect(sut.vaccineCardList.length).toBe(5)
-    expect(sut.vaccineCardList[0].getApplied()).toBe(false)
+    expect(vaccineCardRepositorySpy.incrementCalls).toBe(5)
+    expect(vaccineRepositorySpy.incrementCalls).toBe(3)
   })
 
   test("when the animal have been vaccinated, should not create list of vaccines", async () => {
     const animal = new Animal("any_id", "any_name", 6, "any_type", "any_sex", "")
-    const sut = new CreateVaccineCardSpy();
+    const {sut, vaccineCardRepositorySpy, vaccineRepositorySpy } = makeSut()
 
     await sut.execute({animal, vaccine: {}, isVaccinated: true})
-
-    expect(sut.vaccineCardList.length).toBe(0)
+    
+    expect(vaccineCardRepositorySpy.incrementCalls).toBe(0)
+    expect(vaccineRepositorySpy.incrementCalls).toBe(0)
   })
 });
