@@ -2,10 +2,10 @@ import { Animal } from "@/domain/entities";
 import { describe, expect, test } from "vitest";
 import { VaccineRepositorySpy } from "./mocks/vaccine-repository-spy";
 import { VaccineCardRepositorySpy } from "./mocks/vaccine-card-repository-spy";
-import { CreateVaccineCard } from "./create";
+import { GenerateVaccineCard } from "./generate-vaccine-card";
 
 type TypeSut = {
-  sut: CreateVaccineCard
+  sut: GenerateVaccineCard
   vaccineRepositorySpy: VaccineRepositorySpy
   vaccineCardRepositorySpy: VaccineCardRepositorySpy
 }
@@ -13,7 +13,7 @@ type TypeSut = {
 function makeSut(): TypeSut {
   const vaccineRepositorySpy = new VaccineRepositorySpy()
   const vaccineCardRepositorySpy = new VaccineCardRepositorySpy()
-  const sut = new CreateVaccineCard(vaccineRepositorySpy, vaccineCardRepositorySpy)
+  const sut = new GenerateVaccineCard(vaccineRepositorySpy, vaccineCardRepositorySpy)
   return {
     sut,
     vaccineRepositorySpy,
@@ -26,7 +26,7 @@ describe("Create Vaccine Card", () => {
     const animal = new Animal("any_id", "any_name", 6, "any_type", "any_sex", "")
     const {sut, vaccineCardRepositorySpy, vaccineRepositorySpy} = makeSut()
 
-    await sut.execute({animal, vaccine: {}, isVaccinated: false})
+    await sut.execute({animal, vaccines: {}, isVaccinated: false})
     expect(vaccineCardRepositorySpy.incrementCalls).toBe(5)
     expect(vaccineRepositorySpy.incrementCalls).toBe(3)
   })
@@ -35,7 +35,7 @@ describe("Create Vaccine Card", () => {
     const animal = new Animal("any_id", "any_name", 6, "any_type", "any_sex", "")
     const {sut, vaccineCardRepositorySpy, vaccineRepositorySpy } = makeSut()
 
-    await sut.execute({animal, vaccine: {}, isVaccinated: true})
+    await sut.execute({animal, vaccines: {}, isVaccinated: true})
     
     expect(vaccineCardRepositorySpy.incrementCalls).toBe(0)
     expect(vaccineRepositorySpy.incrementCalls).toBe(0)

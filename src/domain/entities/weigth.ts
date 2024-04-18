@@ -1,14 +1,14 @@
 import { invalidWeight } from "../errors/invalid-weight"
+import { Base } from "./base"
 
-export class Weight {
-  private id: string
+export class Weight extends Base {
   private value: number
   private date: Date
 
   constructor(id: string, value: number, date: Date) {
     if(value < 0) throw new invalidWeight()
 
-    this.id = id
+    super(id)
     this.value = value
     this.date = date
   }

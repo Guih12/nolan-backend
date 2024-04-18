@@ -1,8 +1,8 @@
 import { PasswordLengthInvalid } from "../errors";
 import { Encrypter } from "@/adapters/libs/encrypter";
+import { Base } from "./base";
 
-export class User {
-  private id: string;
+export class User extends Base {
   private name: string;
   private email: string;
   private password: string;
@@ -10,7 +10,7 @@ export class User {
   constructor(id: string, name: string, email: string, password: string) {
     if(password.length < 6) throw new PasswordLengthInvalid()
 
-    this.id = id;
+    super(id);
     this.name = name;
     this.email = email;
     this.password = password;

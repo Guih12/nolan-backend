@@ -1,17 +1,18 @@
 import { Animal } from "./animal"
+import { Base } from "./base"
 
-export class VaccineCard {
-  private id: string
+export class VaccineCard extends Base {
   private animal: Animal
   private vaccine: any
   private appliedDate: Date
-  private applied: boolean = false
+  private applied: boolean
 
-  constructor(id: string, animal: Animal, vaccine: any, appliedDate: Date){
-    this.id = id
+  constructor(id: string, animal: Animal, vaccine: any, appliedDate: Date, applied: boolean){
+    super(id)
     this.animal = animal
     this.vaccine = vaccine
     this.appliedDate = appliedDate
+    this.applied = applied
   }
 
   getId(): string {

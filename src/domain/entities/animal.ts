@@ -1,7 +1,7 @@
+import { Base } from "./base"
 import { Weight } from "./weigth"
 
-export class Animal {
-  private id: string
+export class Animal extends Base {
   private name: string
   private age: number
   private type: string
@@ -11,7 +11,7 @@ export class Animal {
 
   constructor(id: string, name: string, age: number, type: string, sex: string, breed: string) {
     if(age < 0) throw new Error("Age is invalid")
-    this.id = id
+    super(id)
     this.name = name
     this.age = age
     this.type = type
