@@ -1,3 +1,4 @@
+import { InvalidAge } from "../errors/invalid-age"
 import { Base } from "./base"
 import { Weight } from "./weigth"
 
@@ -10,7 +11,7 @@ export class Animal extends Base {
   private weights: Weight[] = []
 
   constructor(id: string, name: string, age: number, type: string, sex: string, breed: string) {
-    if(age < 0) throw new Error("Age is invalid")
+    if(age < 0) throw new InvalidAge()
     super(id)
     this.name = name
     this.age = age
