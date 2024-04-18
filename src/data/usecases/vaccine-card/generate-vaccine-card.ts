@@ -25,8 +25,8 @@ export class GenerateVaccineCard implements IGenerateVaccineCard {
 
   private async createVaccineCardWithV10(animal: Animal) {
    let currentDate = new Date()
-   const vaccineDB = await this.vaccineRepository.getVaccineByName("V10")
-   const vaccine = new Vaccine(vaccineDB.id, vaccineDB.name)
+   const response = await this.vaccineRepository.getVaccineByName("V10")
+   const vaccine = new Vaccine(response.id, response.name)
 
    for(let i=0; i < 3; i++){
     let nextDate = new Date(currentDate)
@@ -38,15 +38,15 @@ export class GenerateVaccineCard implements IGenerateVaccineCard {
   }
 
   private async createVaccineCardWithGiardia(animal: Animal) {
-    const vaccineDB = await this.vaccineRepository.getVaccineByName("Giardia")
-    const vaccine = new Vaccine(vaccineDB.id, vaccineDB.name)
+    const response = await this.vaccineRepository.getVaccineByName("Giardia")
+    const vaccine = new Vaccine(response.id, response.name)
     const vaccineCard = new VaccineCard("any_id", animal, vaccine, new Date(), false)
     this.vaccineCardList.push(vaccineCard)
   }
 
   private async createVaccineCardWithGripeOral(animal: Animal) {
-    const vaccineDB = await this.vaccineRepository.getVaccineByName("Gripe Oral")
-    const vaccine = new Vaccine(vaccineDB.id, vaccineDB.name)
+    const response = await this.vaccineRepository.getVaccineByName("Gripe Oral")
+    const vaccine = new Vaccine(response.id, response.name)
     const vaccineCard = new VaccineCard("any_id", animal, vaccine, new Date(), false)
     this.vaccineCardList.push(vaccineCard)
   }
