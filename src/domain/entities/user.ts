@@ -16,7 +16,7 @@ export class User extends Base {
     this.password = password;
   }
 
-  getId(): string | undefined{
+  getId(): string{
     return this.id;
   }
 

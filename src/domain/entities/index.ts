@@ -1,3 +1,5 @@
 export * from "./user"
 export * from "./animal"
 export * from "./weigth"
+export * from "./vaccine"
+export * from "./vaccine-card"
