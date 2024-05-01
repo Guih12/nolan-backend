@@ -1,4 +1,4 @@
-import { ICreateAnimalRepository } from "@/data/repositories/create-animal-repository"
+import { ICreateAnimalRepository } from "@/domain/repositories/create-animal-repository"
 import { Animal } from "@/domain/entities"
 
 export class CreateAnimalRepositorySpy implements ICreateAnimalRepository {

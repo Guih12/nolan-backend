@@ -1,4 +1,4 @@
-import { PasswordLengthInvalid } from "../errors";
+import { PasswordLengthInvalid } from "../exceptions";
 import { Encrypter } from "@/adapters/libs/encrypter";
 import { Base } from "./base";
 

@@ -1,6 +1,6 @@
 import { describe, test, expect, vi } from "vitest"
 import { SignUpRepositotySpy } from "./mocks/register-repository-spy"
-import { SignUp } from "@/data/usecases"
+import { SignUp } from "@/application/usecases"
 import { EcrypterSpy } from "./mocks/encrypter-spy"
 import { faker } from "@faker-js/faker"
 

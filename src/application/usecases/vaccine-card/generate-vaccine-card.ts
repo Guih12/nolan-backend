@@ -1,5 +1,5 @@
-import { IVaccineCardRepository } from "@/data/repositories/vaccine-card-repository"
-import { IVaccineRepository } from "@/data/repositories/vaccine-repository"
+import { IVaccineCardRepository } from "@/domain/repositories/vaccine-card-repository"
+import { IVaccineRepository } from "@/domain/repositories/vaccine-repository"
 import { Animal } from "@/domain/entities"
 import { Vaccine } from "@/domain/entities/vaccine"
 import { VaccineCard } from "@/domain/entities/vaccine-card"

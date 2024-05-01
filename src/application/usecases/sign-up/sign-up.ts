@@ -1,8 +1,8 @@
-import { PasswordLengthInvalid, UserExist } from "@/domain/errors"
+import { PasswordLengthInvalid, UserExist } from "@/domain/exceptions"
 import { User } from "@/domain/entities"
 import { Encrypter } from "@/adapters/libs/encrypter"
 import { ISignUp } from "@/domain/usecases"
-import { ISignUpRepository } from "@/data/repositories"
+import { ISignUpRepository } from "@/domain/repositories"
 import { v4 as uuidv4 } from "uuid"
 
 export class SignUp implements ISignUp {

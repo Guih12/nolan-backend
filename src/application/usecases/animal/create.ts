@@ -1,7 +1,7 @@
 import { CreateAnimalInput, ICreateAnimal } from "@/domain/usecases/animal/create"
 import { Animal, Weight } from "@/domain/entities"
-import { ICreateAnimalRepository } from "@/data/repositories/create-animal-repository"
-import { ICreateWeightRepository } from "@/data/repositories/create-weight-repository"
+import { ICreateAnimalRepository } from "@/domain/repositories/create-animal-repository"
+import { ICreateWeightRepository } from "@/domain/repositories/create-weight-repository"
 import { v4 as uuidv4 } from "uuid"
 
 export class CreateAnimal implements ICreateAnimal {

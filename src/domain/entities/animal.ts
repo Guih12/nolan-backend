@@ -1,4 +1,4 @@
-import { InvalidAge } from "../errors/invalid-age"
+import { InvalidAge } from "../exceptions/invalid-age"
 import { Base } from "./base"
 import { Weight } from "./weigth"
 

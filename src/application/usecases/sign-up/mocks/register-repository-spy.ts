@@ -1,4 +1,4 @@
-import { ISignUpRepository } from "@/data/repositories"
+import { ISignUpRepository } from "@/domain/repositories"
 
 export class SignUpRepositotySpy implements ISignUpRepository {
   users = [

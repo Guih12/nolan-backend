@@ -1,6 +1,6 @@
-import { ISignInRepository } from "@/data/repositories"
+import { ISignInRepository } from "@/domain/repositories"
 import { User } from "@/domain/entities"
-import { EmailOrPasswordWrong } from "@/domain/errors/email-or-password-wrong"
+import { EmailOrPasswordWrong } from "@/domain/exceptions/email-or-password-wrong"
 import { ISignIn } from "@/domain/usecases/sign-in"
 
 export class SignIn implements ISignIn {

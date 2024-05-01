@@ -1,4 +1,4 @@
-import { invalidWeight } from "../errors/invalid-weight"
+import { invalidWeight } from "../exceptions/invalid-weight"
 import { Base } from "./base"
 
 export class Weight extends Base {
