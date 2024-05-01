@@ -3,10 +3,10 @@ import { IVaccineRepository } from "@/domain/repositories/vaccine-repository"
 import { Animal } from "@/domain/entities"
 import { Vaccine } from "@/domain/entities/vaccine"
 import { VaccineCard } from "@/domain/entities/vaccine-card"
-import { GenerateVaccineCardInput, IGenerateVaccineCard } from "@/domain/usecases/vaccine-card/generate-vaccine-card"
 import { v4 as uuidv4 } from 'uuid'
+import { GenerateVaccineCardInput } from "./generate-vaccine-card-input"
 
-export class GenerateVaccineCard implements IGenerateVaccineCard {
+export class GenerateVaccineCard {
   private vaccineCardList: VaccineCard[] = []
 
   constructor(

@@ -1,10 +1,10 @@
-import { CreateAnimalInput, ICreateAnimal } from "@/domain/usecases/animal/create"
 import { Animal, Weight } from "@/domain/entities"
 import { ICreateAnimalRepository } from "@/domain/repositories/create-animal-repository"
 import { ICreateWeightRepository } from "@/domain/repositories/create-weight-repository"
 import { v4 as uuidv4 } from "uuid"
+import { CreateAnimalInput } from "./create-animal-input"
 
-export class CreateAnimal implements ICreateAnimal {
+export class CreateAnimal {
   constructor(
     private readonly createAnimalRepository: ICreateAnimalRepository,
     private readonly createWeightRepository?: ICreateWeightRepository

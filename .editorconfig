@@ -1,0 +1,27 @@
+# Top-most EditorConfig file
+root = true
+
+# Set the default charset
+[*]
+charset = utf-8
+
+# Indentation settings
+[*.ts]
+indent_style = space
+indent_size = 2
+
+# End of line settings
+[*.{ts}]
+end_of_line = lf
+
+# Trim trailing whitespace
+[*.{ts}]
+trim_trailing_whitespace = true
+
+# Insert final newline
+[*.{ts}]
+insert_final_newline = true
+
+# Set the maximum line length
+[*.{ts}]
+max_line_length = 120

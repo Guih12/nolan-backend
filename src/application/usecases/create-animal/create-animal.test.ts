@@ -2,7 +2,7 @@ import { ICreateAnimal, CreateAnimalInput } from "@/domain/usecases/animal/creat
 import { describe, test, expect } from "vitest";
 import { CreateAnimalRepositorySpy } from "./mock/create-animal-repository-spy";
 import { CreateWeightRepositorySpy } from "./mock/create-weigth-repository-spy";
-import { CreateAnimal } from "./create";
+import { CreateAnimal } from "./create-animal";
 
 type TypeSut = {
   sut: CreateAnimal,
